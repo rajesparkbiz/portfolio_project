@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrollable Table</title>
+    <link rel="stylesheet" href="/css/scrollable-table.css">
+</head>
+<body>
+    <div id="tableSizeInput">
+        <input type="range" name="table_size" id="table_size" max="100" min="5" oninput="chnageTableSize(this.value)"> 
+        <p id="display_size">5</p>
+    </div>
+    
+    <table id="scrollable_table" border="1">
+        
+    </table>
+</body>
+<script src="/js/scrollable-table.js"></script>
+</html>

@@ -1,0 +1,67 @@
+body{
+    background-color: azure
+}
+td{
+    height: 30px;
+    width: 200px;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+}
+    
+table{  
+    border-radius: 10px;
+    padding: 10px;
+    background-color: thistle;
+}
+
+input{
+    border-radius: 5px;
+    margin: 5px;
+    border: 1px solid black;
+    height: 30px;
+    width: 200px;
+}
+
+select{
+    border-radius: 5px;
+    margin: 5px;
+    height: 30px;
+    width: 200px;
+    border: 1px solid black;
+}
+
+#gender_box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+#formBtn{
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+}
+
+.formButton{
+    height: 40px;
+    width: 100px;
+    background-color: burlywood;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    margin: 10px;
+}
+
+textarea{
+    resize: none;
+}
+
+.error{
+    margin: 10px;
+    color: red;
+}

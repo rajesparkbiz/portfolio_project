@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Page</title>
+    <style>
+        .card{
+            display: flex;
+            height: 100px;
+            width: 700px;
+            margin: 10px;
+            background-color: bisque;
+            border-radius: 20px;
+        }
+        .col{
+            display: flex;
+            justify-content: start;
+            padding-left: 15px;
+        }
+        #btn{
+            height: 30px;
+            width: 70px;
+            margin-left: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            text-align: center;
+            background-color: white;
+        }
+        a{
+            text-decoration: none;
+            text-align: center;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <h3>Student Result Page</h3>
+    <%for(let i=0;i<data.length;i++){%>
+        <div id="main">
+            <div class="card">
+                <div class="col">
+                    <p>Name:</p>
+                    <p>
+                        <%= data[i].name %>
+                    </p>
+                </div>
+                <div class="col">
+                    <p>City:</p>
+                    <p>
+                        <%= data[i].city %>
+                    </p>
+                </div>
+                <div class="col">
+                    <p>Teacher ID:</p>
+                    <p>
+                        <%= data[i].teacher_id %>
+                    </p>
+                </div>
+                <div class="col">
+                    <p>Marks:</p>
+                    <p>
+                        <%= data[i].marks %>
+                    </p>
+                </div>
+                <div id="btn">
+                    <a href="/update-student/<%=data[i].id%>" id="editBtn">Edit</a>
+                </div>
+                <div id="btn">
+                    <a href="/delete-data/<%=data[i].id%>" id="deleteBtn">Delete</a>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+    <%}%>
+</body>
+
+</html>

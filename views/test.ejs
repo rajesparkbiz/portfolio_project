@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<style>
+    .flex-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .box {
+        border-radius: 10px;
+        border: 1px solid black;
+    }
+
+    .add-btn {
+        height: 35px;
+        width: 150px;
+        background-color: aquamarine;
+        opacity: 0.8;
+        align-items: center;
+        border-radius: 10px;
+    }
+
+    .remove-btn {
+        height: 35px;
+        width: 150px;
+        background-color: crimson;
+        opacity: 0.7;
+        align-items: center;
+        border-radius: 10px;
+    }
+
+    .add-btn p {
+        text-align: center;
+        color: black;
+        cursor: pointer;
+    }
+
+    .remove-btn p {
+        text-align: center;
+        color: white;
+        cursor: pointer;
+    }
+
+    .disable-content {
+        display: none;
+    }
+
+    .active-content {
+        display: block;
+    }
+
+    .control-btn {
+        height: 38px;
+        width: 70px;
+        border-radius: 10px;
+    }
+
+    .controlller {
+        display: flex;
+        justify-content: start;
+    }
+
+    #newTech {
+        height: 40px;
+        border-radius: 10px;
+        width: 100px;
+    }
+</style>
+
+<body>
+
+    <div class="m-4">
+        <div id="alert-content">
+
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <p onclick="toogle(this)" class="nav-link active" id="tab1">Basic Info</p>
+            </li>
+            <li class="nav-item">
+                <p onclick="toogle(this)" class="nav-link" id="tab2">Education Info</p>
+            </li>
+            <li class="nav-item">
+                <p onclick="toogle(this)" class="nav-link" id="tab3">Experience Info</p>
+            </li>
+            <li class="nav-item">
+                <p onclick="toogle(this)" class="nav-link" id="tab4">Reference Info</p>
+            </li>
+            <li class="nav-item">
+                <p onclick="toogle(this)" class="nav-link" id="tab5">Languages Info</p>
+            </li>
+            <li class="nav-item">
+                <p onclick="toogle(this)" class="nav-link" id="tab6">Technology Info</p>
+            </li>
+        </ul>
+    </div>
+
+    <div id="basic_main" class="basic_main active-content content">
+
+        <div class="container box mt-3 pb-3">
+            <form action="/job-app/update-data/" method="post">
+
+                <input type="hidden" name="id" value="<%= data[0].candidate_id %>">
+                <div class="flex-box">
+                    <div class="mb-3">
+                        <label for="fname" class="form-label">First Name</label>
+                        <input type="text" class="form-control basic-input" value="<%= data[0].fname%>" name="fname">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="lname" class="form-label">Last Name</label>
+                        <input type="text" class="form-control basic-input" value="<%= data[0].lname%>" name="lname">
+                    </div>
+                    <div class="mb-3">
+                        <label for="designation" class="form-label">Designation</label>
+                        <input type="text" class="form-control basic-input" value="<%= data[0].designation%>"
+                            name="designation">
+                    </div>
+                </div>
+
+                <div class="flex-box">
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control basic-input" value="<%= data[0].email%>" name="email">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">phone</label>
+                        <input type="text" class="form-control basic-input" value="<%= data[0].phone%>" name="phone">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="zcode" class="form-label">zip code</label>
+                        <input type="text" class="form-control basic-input" value="<%= data[0].zcode%>" name="zcode">
+                    </div>
+
+
+
+                </div>
+
+                <div class="flex-box">
+
+
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label">address</label>
+                        <input type="text" class="form-control basic-input" value="<%= data[0].address%>"
+                            name="address">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="department">department</label>
+                        <select name="department" class="basic-dropdown">
+
+                            <% for(let i=0;i< department.length;i++) {%>
+                                <option class="dropdown-item" value="<%= department[i].option_value %>"
+                                    <%if(department[i].option_value==data[0].department){%>
+                                    selected
+                                    <%}else{%>
+
+                                        <%}%>>
+                                            <%= department[i].option_value %>
+                                </option>
+                                <%}%>
+
+                        </select>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label class="form-check-label" for="gender">Gender</label>
+
+                        <% for(let i=0;i<gender_type.length;i++) {%>
+
+                            <input class="form-check-input basic-input" type="radio" value="<%= gender_type[i] %>"
+                                name="gender" <%if(gender_type[i]==data[0].gender){%>
+                            checked
+                            <%}else{%>
+
+                                <%}%>
+                                    >
+                                    <label class="form-check-label" for="gender">
+                                        <%= gender_type[i]%>
+                                    </label>
+
+                                    <%}%>
+                    </div>
+
+                </div>
+
+                <div class="flex-box">
+                    <div class="mb-3">
+                        <label for="dob" class="form-label">DOB</label>
+                        <input type="date" class="form-control basic-input" value="<%= data[0].dob%>" name="dob">
+                    </div>
+
+                    <div class="">
+                        <label for="state">State</label>
+                        <select name="state" class="basic-dropdown" id="state_menu" onchange="updateCity()">
+
+                            <% for(let i=0;i< state.length;i++) {%>
+                                <option class="dropdown-item" value="<%= state[i].state_name %>"
+                                    <%if(state[i].state_name==data[0].state){%>
+                                    selected
+                                    <%}else{%>
+
+                                        <%}%>>
+                                            <%= state[i].state_name %>
+                                </option>
+                                <%}%>
+
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="city">City</label>
+                        <select name="city" id="city_menu" class="basic-dropdown">
+
+                            <% for(let i=0;i< city.length;i++) {%>
+                                <option class="dropdown-item" value="<%= city[i].city_name %>"
+                                    <%if(city[i].city_name==data[0].city){%>
+                                    selected
+                                    <%}else{%>
+
+                                        <%}%>>
+                                            <%= city[i].city_name%>
+                                </option>
+                                <%}%>
+
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="pref_location">Preferd Location</label>
+                        <select name="pref_location" class="basic-dropdown">
+
+                            <% for(let i=0;i< pref.length;i++) {%>
+                                <option class="dropdown-item" value="<%= pref[i].option_value %>"
+                                    <%if(pref[i].option_value==data[0].perf_location){%>
+                                    selected
+                                    <%}else{%>
+
+                                        <%}%>>
+                                            <%= pref[i].option_value %>
+                                </option>
+                                <%}%>
+
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="flex-box">
+                    <div class="mb-3">
+                        <label for="notice_peroid" class="form-label">Notice Peroid</label>
+                        <input type="text" class="form-control basic-input" name="notice_peroid"
+                            value="<%= data[0].notice_peroid%>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="expacted_ctc" class="form-label">Expacted CTC</label>
+                        <input type="text" name="expacted_ctc" class="form-control basic-input"
+                            value="<%= data[0].expacted_ctc%>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="current_ctc" class="form-label">Current CTC</label>
+                        <input type="text" name="current_ctc" class="form-control basic-input"
+                            value="<%= data[0].current_ctc%>">
+                    </div>
+                </div>
+                <div class="controlller">
+                    <input type="submit" id="basic-save-btn" class="btn btn-primary m-2" value="save">
+                    <input type="button" id="basic-edit-btn" class="btn btn-primary m-2" value="Edit"
+                        onclick="editData()">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="edu_main" class="edu_main disable-content content">
+
+        <div class="container box mt-3 pb-3">
+
+            <form action="/job-app/update-data/edu" method="post">
+                <input type="hidden" name="id" value="<%= data[0].candidate_id %>">
+                <div class="add-btn mt-3" onclick="addEducation()">
+                    <p class="pt-1">Add Education</p>
+                </div>
+
+                <div id="edu-content">
+                    <% for(let i=0;i<acadamic.length;i++){%>
+                        <div class="flex-box">
+                            <div class="mb-3">
+                                <input type="hidden" name="edu_id" value="<%= acadamic[i].acadamic_id %>">
+                                <label for="Course" class="form-label">Course Name</label>
+                                <select name="Course" class="mt-4 edu-dropdown">
+
+                                    <% for(let j=0;j< courses.length;j++) {%>
+                                        <option class="dropdown-item" value="<%= courses[j].course_name %>"
+                                            <%if(courses[j].course_name==acadamic[i].course_name){%>
+                                            selected
+                                            <%}else{%>
+
+                                                <%}%>>
+                                                    <%= courses[j].course_name %>
+                                        </option>
+                                        <%}%>
+
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="institution" class="form-label">Name of Board</label>
+                                <input type="text" name="institution" class="form-control edu-input"
+                                    value="<%= acadamic[i].education_board%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Passing_Year" class="form-label">Passing Year</label>
+                                <input type="text" name="Passing_Year" class="form-control edu-input"
+                                    value="<%= acadamic[i].education_year%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="Percentage" class="form-label">Percentage</label>
+                                <input type="text" name="Percentage" class="form-control edu-input"
+                                    value="<%= acadamic[i].education_grade%>">
+                            </div>
+                            <div class="remove-btn mt-3">
+                                <p class="pt-1">Delete</p>
+                            </div>
+                        </div>
+                        <%}%>
+                </div>
+
+                <div>
+                    <input type="submit" id="edu-save-btn" class="btn btn-primary mt-5" value="Save">
+                    <input type="button" id="edu-edit-btn" class="btn btn-primary mt-5" value="Edit"
+                        onclick="eduEditData()">
+                </div>
+            </form>
+        </div>
+        <form action="/job-app/insertEdu" method="post">
+            <input type="hidden" value="<%= data[0].candidate_id %>" name="id">
+            <div class="container mt-3 pb-3" id="newEdu">
+
+                <input type="submit" class="btn btn-primary" value="Save Courses" id="addEduSubmitBtn">
+            </div>
+        </form>
+    </div>
+
+    <div id="exe_main" class="exe_main disable-content content">
+
+        <div class="container box mt-3 pb-3">
+            <div class="add-btn mt-3" onclick="addExperience()">
+                <p class="pt-1">Add Experience</p>
+            </div>
+            <form action="/job-app/update-data/exe" method="post">
+                <input type="hidden" name="id" value="<%= data[0].candidate_id %>">
+                <% for(let i=0;i<experience.length;i++){%>
+                    <div id="exe-content">
+                        <div class="flex-box">
+                            <div class="mb-3">
+                                <input type="hidden" name="exe_id" value="<%= experience[i].exprience_id %>">
+                                <label for="exe_company_name" class="form-label">Company Name</label>
+                                <input type="text" name="exe_company_name" class="form-control exe-input"
+                                    value="<%= experience[i].company_name%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exe_designation" class="form-label">Designation</label>
+                                <input type="text" name="exe_designation" class="form-control exe-input"
+                                    value="<%= experience[i].candidate_position%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exe_from" class="form-label">Joinning Date</label>
+                                <input type="date" name="exe_from" class="form-control exe-input"
+                                    value="<%= experience[i].candidate_joining%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exe_to" class="form-label">Leaving Date</label>
+                                <input type="date" name="exe_to" class="form-control exe-input"
+                                    value="<%= experience[i].candidate_leaving%>">
+                            </div>
+                            <div class="remove-btn mt-3">
+                                <p class="pt-1">Delete</p>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+                        <input type="submit" id="exe-save-btn" class="btn btn-primary mt-5" value="Save">
+                        <input type="button" id="exe-edit-btn" class="btn btn-primary m-2" value="Edit"
+                            onclick="editExeData()">
+            </form>
+        </div>
+        <form action="/joba-app/insertExe" method="post">
+            <input type="hidden" value="<%= data[0].candidate_id %>" name="id">
+            <div class="container mt-3 pb-3" id="newExe">
+
+                <input type="submit" class="btn btn-primary" value="Save Courses" id="addExeSubmitBtn">
+            </div>
+        </form>
+
+    </div>
+
+    <div id="ref_main" class="ref_main disable-content content">
+
+        <div class="container box mt-3 pb-3">
+            <div class="add-btn mt-3" onclick="addRefrence()">
+                <p class="pt-1">Add reference</p>
+            </div>
+            <form action="/job-app/update-data/ref" method="post">
+                <input type="hidden" name="id" value="<%= data[0].candidate_id %>">
+                <% for(let i=0;i<reference.length;i++){%>
+                    <div id="ref-content">
+                        <div class="flex-box">
+                            <div class="mb-3">
+                                <input type="hidden" name="ref_id" value="<%= reference[i].reference_id %>">
+                                <label for="ref_name" class="form-label">Person Name</label>
+                                <input type="text" name="ref_name" class="form-control ref-input"
+                                    value="<%= reference[i].person_name%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="ref_number" class="form-label">Person Number</label>
+                                <input type="text" name="ref_number" class="form-control ref-input"
+                                    value="<%= reference[i].person_contact%>">
+                            </div>
+                            <div class="mb-3">
+                                <label for="ref_relation" class="form-label">Relation</label>
+                                <input type="text" name="ref_relation" class="form-control ref-input"
+                                    value="<%= reference[i].person_relation%>">
+                            </div>
+                            <div class="remove-btn mt-3">
+                                <p class="pt-1">Delete</p>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+                        <input type="submit" id="ref-save-btn" class="btn btn-primary mt-5" value="Save">
+                        <input type="button" id="ref-edit-btn" class="btn btn-primary m-2" value="Edit"
+                            onclick="editRefData()">
+            </form>
+        </div>
+        <form action="/job-app/insertRef" method="post">
+            <input type="hidden" value="<%= data[0].candidate_id %>" name="id">
+            <div class="container mt-3 pb-3" id="newRef">
+
+                <input type="submit" class="btn btn-primary" value="Save Courses" id="addRefSubmitBtn">
+            </div>
+        </form>
+    </div>
+
+    <div id="lang_main" class="lang_main disable-content content">
+
+        <div class="container box mt-3 pb-3">
+
+            <div>
+                <p class="m-3">Languages</p>
+                <form action="/job-app/update-data/language" method="post">
+                    <input type="hidden" value="<%=data[0].candidate_id%>" name="id">
+                    <%for(let i=0;i<laanguage.length;i++){%>
+                        <div class="m-3">
+                            <input type="hidden" value="<%= laanguage[i].language_id %>" name="lang_id">
+                            <input class="form-check-input lang-input" type="checkbox"
+                                name="<%=laanguage[i].language_name%>" value="<%=laanguage[i].language_name%>" checked>
+
+                            <label class="me-3" for="<%= laanguage[i].language_name %>">
+                                <%= laanguage[i].language_name %>
+                            </label>
+
+                            <input class="form-check-input lang-input" type="checkbox"
+                                name="<%= laanguage[i].language_name %>r" value="yes"
+                                <%if(laanguage[i].language_read=='yes' ){%>
+                            checked
+                            <%}%>>
+                                <label class="me-2" for="<%= laanguage[i].language_name %>r">Read</label>
+
+                                <input class="form-check-input lang-input" type="checkbox"
+                                    name="<%= laanguage[i].language_name %>s" value="yes"
+                                    <%if(laanguage[i].language_speak=='yes' ){%>
+                                checked
+                                <%}%>>
+                                    <label class="me-2" for="<%= laanguage[i].language_name %>s">Speak</label>
+
+                                    <input class="form-check-input lang-input" type="checkbox"
+                                        name="<%= laanguage[i].language_name %>w" value="yes"
+                                        <%if(laanguage[i].language_write=='yes' ){%>
+                                    checked
+                                    <%}%>>
+                                        <label class="me-2" for="<%= laanguage[i].language_name %>w">Write</label>
+
+                        </div>
+                        <%}%>
+            </div>
+            <input type="submit" id="lang-save-btn" class="btn btn-primary mt-5" value="Save">
+            <input type="button" id="lang-edit-btn" class="btn btn-primary m-2" value="Edit" onclick="editLangData()">
+            </form>
+        </div>
+
+    </div>
+
+    <div class="container box mt-3 disable-content content" id="lang_second">
+
+        <% if(remanningLang.length==0){ %>
+            <p>
+                Langauge Not Found
+            </p>
+        <%}%>
+
+        <form action="/job-app/insertLang" method="post">
+            <input type="hidden" value="<%=data[0].candidate_id%>" name="id">
+            <%for(let i=0;i<remanningLang.length;i++){%>
+                <div class="m-3">
+                    <input class="form-check-input lang-input-rem" type="checkbox" name="<%=remanningLang[i]%>"
+                        value="<%=remanningLang[i]%>">
+
+                    <label class="me-3" for="<%= remanningLang[i] %>">
+                        <%= remanningLang[i] %>
+                    </label>
+
+                    <input class="form-check-input lang-input-rem" type="checkbox" name="<%= remanningLang[i] %>r"
+                        value="yes">
+                    <label class="me-2" for="<%= remanningLang[i] %>r">Read</label>
+
+                    <input class="form-check-input lang-input-rem" type="checkbox" name="<%= remanningLang[i] %>s"
+                        value="yes">
+                    <label class="me-2" for="<%= remanningLang[i] %>s">Speak</label>
+
+                    <input class="form-check-input lang-input-rem" type="checkbox" name="<%= remanningLang[i] %>w"
+                        value="yes">
+                    <label class="me-2" for="<%= remanningLang[i] %>w">Write</label>
+                </div>
+                <%}%>
+                    <input type="submit" value="Add New Language" class="btn btn-primary mb-3">
+    </div>
+    </form>
+    </div>
+
+    <div id="tech_main" class="tech_main disable-content content">
+
+        <div class="container box mt-3 pb-3" id="tech_first">
+            <p class="m-3">Technology</p>
+            <form action="/job-app/update-data/technology" method="post">
+                <input type="hidden" value="<%=data[0].candidate_id%>" name="id">
+                <% for(let i=0;i<technology.length;i++){%>
+                    <div class="m-3">
+                        <input type="hidden" value="<%= technology[i].tech_id %>" name="tech_id">
+                        <input class="form-check-input tech-input" type="checkbox"
+                            name="<%= technology[i].technology_name %>" value="<%= technology[i].technology_name %>"
+                            checked>
+                        <label class="me-3" for="<%= technology[i].technology_name %>a">
+                            <%= technology[i].technology_name %>
+                        </label>
+
+                        <input class="form-check-input tech-input" type="radio"
+                            name="<%= technology[i].technology_name %>a" value="beginner"
+                            <%if(technology[i].technology_level=='beginner' ){%>
+                        checked
+                        <%}%>>
+                            <label class="me-2" for="<%= technology[i].technology_name %>a">Benginner</label>
+
+                            <input class="form-check-input tech-input" type="radio"
+                                name="<%= technology[i].technology_name %>a" value="mideator"
+                                <%if(technology[i].technology_level=='mideator' ){%>
+                            checked
+                            <%}%>>
+                                <label class="me-2" for="<%= technology[i].technology_name %>a">Mediator</label>
+
+                                <input class="form-check-input tech-input" type="radio"
+                                    name="<%= technology[i].technology_name %>a" value="expert"
+                                    <%if(technology[i].technology_level=='expert' ){%>
+                                checked
+                                <%}%>>
+                                    <label class="me-2" for="<%= technology[i].technology_name %>a">Expert</label>
+
+                    </div>
+                    <%}%>
+                        <input type="submit" id="tech-save-btn" class="btn btn-primary mt-5" value="Save">
+                        <input type="button" id="tech-edit-btn" class="btn btn-primary m-2" value="Edit"
+                            onclick="editTechData()">
+            </form>
+        </div>
+    </div>
+
+    <div class="container box mt-3 disable-content content" id="tech_second">
+        <% if(remanningTech.length==0){ %>
+            <p>
+                Technology Not Found
+            </p>
+        <%}%>
+        <form action="/job-app/insertTech" method="post">
+            <input type="hidden" value="<%=data[0].candidate_id%>" name="id">
+            <% for(let i=0;i<remanningTech.length;i++){%>
+                <div class="m-3">
+
+                    <input class="form-check-input tech-input-rem" type="checkbox" name="<%= remanningTech[i] %>"
+                        value="<%= remanningTech[i] %>">
+                    <label class="me-3" for="<%= remanningTech[i] %>">
+                        <%= remanningTech[i] %>
+                    </label>
+
+                    <input class="form-check-input tech-input-rem" type="radio" name="<%= remanningTech[i] %>a"
+                        value="beginner">
+                    <label class="me-2" for="<%= remanningTech[i] %>a">Benginner</label>
+
+                    <input class="form-check-input tech-input-rem" type="radio" name="<%= remanningTech[i] %>a"
+                        value="mideator">
+                    <label class="me-2" for="<%= remanningTech[i] %>a">Mediator</label>
+
+                    <input class="form-check-input tech-input-rem" type="radio" name="<%= remanningTech[i] %>a"
+                        value="expert">
+                    <label class="me-2" for="<%= remanningTech[i] %>a">Expert</label>
+
+                </div>
+                <%}%>
+                    <input type="submit" class="btn btn-primary m-2" value="Add New Technology">
+
+        </form>
+    </div>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+<script>
+
+    const addEduBtn = document.getElementById('addEduSubmitBtn');
+    addEduBtn.style.display = 'none';
+
+    const addExeBtn = document.getElementById('addExeSubmitBtn');
+    addExeBtn.style.display = 'none';
+
+    const addRefBtn = document.getElementById('addRefSubmitBtn');
+    addRefBtn.style.display = 'none';
+
+    const basicSaveBtn = document.getElementById('basic-save-btn');
+    const basicEditBtn = document.getElementById('basic-edit-btn');
+    basicSaveBtn.style.display = 'none'
+
+    const eduSaveBtn = document.getElementById('edu-save-btn');
+    const eduEditBtn = document.getElementById('edu-edit-btn');
+    eduSaveBtn.style.display = 'none'
+
+    const exeSaveBtn = document.getElementById('exe-save-btn');
+    const exeEditBtn = document.getElementById('exe-edit-btn');
+    exeSaveBtn.style.display = 'none'
+
+    const refSaveBtn = document.getElementById('ref-save-btn');
+    const refEditBtn = document.getElementById('ref-edit-btn');
+    refSaveBtn.style.display = 'none'
+
+    const langSaveBtn = document.getElementById('lang-save-btn');
+    const langEditBtn = document.getElementById('lang-edit-btn');
+    langSaveBtn.style.display = 'none'
+
+    const techSaveBtn = document.getElementById('tech-save-btn');
+    const techEditBtn = document.getElementById('tech-edit-btn');
+    techSaveBtn.style.display = 'none'
+
+    readOnlyInputs('.basic-input');
+    readOnlyInputs('.edu-input');
+    readOnlyInputs('.exe-input');
+    readOnlyInputs('.ref-input');
+    // readOnlyInputs('.lang-input');
+
+    dropDownReadOnlyInputs('.basic-dropdown');
+    dropDownReadOnlyInputs('.edu-dropdown');
+    dropDownReadOnlyInputs('.lang-input');
+    dropDownReadOnlyInputs('.tech-input');
+
+    async function toogle(value) {
+
+        
+        //this code use for chnage the tab 
+        const allTabs = document.querySelectorAll('.nav-link');
+        allTabs.forEach((tab) => {
+            tab.classList.remove('active');
+        })
+        const tabId = value.id;
+        const tab = document.getElementById(tabId);
+        tab.classList.add('active');
+
+
+
+        //this code use for chnage the content based on tab clicked.
+        const content = document.querySelectorAll('.content');
+        content.forEach((con) => {
+            con.classList.remove('active-content');
+            con.classList.add('disable-content');
+        })
+
+        if (tabId == 'tab1') {
+            const tab2 = document.getElementById('basic_main');
+            tab2.classList.remove('disable-content');
+            tab2.classList.add('active-content')
+        }
+        if (tabId == 'tab2') {
+            const tab2 = document.getElementById('edu_main');
+            tab2.classList.remove('disable-content');
+            tab2.classList.add('active-content')
+        }
+        if (tabId == 'tab3') {
+            const tab2 = document.getElementById('exe_main');
+            tab2.classList.remove('disable-content');
+            tab2.classList.add('active-content')
+        }
+        if (tabId == 'tab4') {
+            const tab2 = document.getElementById('ref_main');
+            tab2.classList.remove('disable-content');
+            tab2.classList.add('active-content')
+        }
+        if (tabId == 'tab5') {
+            const tab2 = document.getElementById('lang_main');
+            const temp = document.getElementById('lang_second');
+
+            tab2.classList.remove('disable-content');
+            tab2.classList.add('active-content')
+
+            temp.classList.remove('disable-content');
+            temp.classList.add('active-content')
+        }
+        if (tabId == 'tab6') {
+            const tab2 = document.getElementById('tech_main');
+            const temp = document.getElementById('tech_second');
+
+            tab2.classList.remove('disable-content');
+            tab2.classList.add('active-content')
+
+            temp.classList.remove('disable-content');
+            temp.classList.add('active-content')
+        }
+
+    }
+
+    async function updateCity() {
+        console.log("call")
+        const stateDropdown = document.getElementById('state_menu');
+        var state = stateDropdown.value;
+        var state_id;
+        if (state == 'Gujarat') {
+            state_id = 1;
+        }
+        if (state == 'Haryana') {
+            state_id = 2;
+        }
+        if (state == 'Jharkhand') {
+            state_id = 3;
+        }
+        if (state == 'Assam') {
+            state_id = 4;
+        }
+        if (state == 'Bihar') {
+            state_id = 5;
+        }
+        if (state == 'Goa') {
+            state_id = 6;
+        }
+
+        try {
+            const response = await fetch(`/job-app/cities/?state_id=${state_id}`);
+            const city = await response.json();
+            updateOptions(city);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function updateOptions(cities) {
+        const cityDropdown = document.getElementById('city_menu');
+        cityDropdown.innerHTML = '';
+
+        for (let i = 0; i < cities.length; i++) {
+            const option = document.createElement('option');
+            option.value = cities[i].city_name;
+            option.text = cities[i].city_name;
+            cityDropdown.appendChild(option);
+        }
+    }
+
+    //save and edit data
+    function editData() {
+        const allDropDown = document.querySelectorAll('.basic-dropdown');
+        const allInput = document.querySelectorAll('.basic-input');
+        toogleModeForInput(basicSaveBtn, basicEditBtn, allInput, allDropDown);
+    }
+
+    function eduEditData() {
+        const allDropDown = document.querySelectorAll('.edu-dropdown');
+
+        const allInput = document.querySelectorAll('.edu-input');
+
+        toogleModeForInput(eduSaveBtn, eduEditBtn, allInput, allDropDown);
+
+    }
+
+    function editExeData() {
+        const allDropDown = document.querySelectorAll('.exe-dropdown');
+        const allInput = document.querySelectorAll('.exe-input');
+        toogleModeForInput(exeSaveBtn, exeEditBtn, allInput, allDropDown);
+    }
+
+    function editRefData() {
+        const allDropDown = document.querySelectorAll('.ref-dropdown');
+        const allInput = document.querySelectorAll('.ref-input');
+        toogleModeForInput(refSaveBtn, refEditBtn, allInput, allDropDown);
+    }
+
+    function editLangData() {
+        const allDropDown = document.querySelectorAll('.lang-dropdown');
+        const allInput = document.querySelectorAll('.lang-input');
+        toogleModeForInput(langSaveBtn, langEditBtn, allDropDown, allInput);
+    }
+
+    function editTechData() {
+        const allDropDown = document.querySelectorAll('.tech-dropdown');
+        const allInput = document.querySelectorAll('.tech-input');
+        toogleModeForInput(techSaveBtn, techEditBtn, allDropDown, allInput);
+    }
+
+    function addEducation() {
+        addEduBtn.style.display = 'block';
+
+        const container = document.getElementById('newEdu');
+        const div = document.createElement('div');
+        let content = `
+        <div class="box p-3 m-3">
+            <div class="flex-box">
+                <div class="mb-3">
+                    <label for="Course" class="form-label">Course Name</label>
+                        <select name="Course" class="mt-4 course">
+
+                            <% for(let j=0;j< courses.length;j++) {%>
+                                <option class="dropdown-item" value="<%= courses[j].course_name %>">
+                                    <%= courses[j].course_name %>
+                                </option>
+                            <%}%>
+
+                        </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="institution" class="form-label">Name of Board</label>
+                    <input type="text" name="institution" class="form-control institution">
+                </div>
+
+                <div class="mb-3">
+                    <label for="Passing_Year" class="form-label">Passing Year</label>
+                    <input type="text" name="Passing_Year" class="form-control passing_year">
+                </div>
+
+                <div class="mb-3">
+                    <label for="Percentage" class="form-label">Percentage</label>
+                    <input type="text" name="Percentage" class="form-control percentage">
+                </div>
+                
+                <div class="remove-btn mt-3">
+                    <p class="pt-1">Delete</p>
+                </div>
+    </div>
+    
+    </div>
+    `;
+        div.innerHTML = content;
+        container.appendChild(div)
+    }
+
+    function addExperience() {
+        addExeBtn.style.display = 'block';
+
+        const container = document.getElementById('newExe');
+        const div = document.createElement('div');
+
+        let content = `
+        <div class="box p-3 m-3">
+        <div class="flex-box">
+                        <div class="mb-3">
+                            <label for="exe_company_name" class="form-label">Company Name</label>
+                            <input type="text" name="exe_company_name" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exe_designation" class="form-label">Designation</label>
+                            <input type="text" name="exe_designation" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exe_from" class="form-label">Joinning Date</label>
+                            <input type="date" name="exe_from" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exe_to" class="form-label">Leaving Date</label>
+                            <input type="date" name="exe_to" class="form-control">
+                        </div>
+                        <div class="remove-btn mt-3">
+                            <p class="pt-1">Delete</p>
+                        </div>
+        </div></div>`;
+        div.innerHTML = content;
+        container.appendChild(div)
+    }
+
+    function addRefrence() {
+        addRefBtn.style.display = 'block';
+        const container = document.getElementById('newRef');
+        const div = document.createElement('div');
+        let content = `
+        <div class="box p-3 m-3">
+        <div class="flex-box">
+                        <div class="mb-3">
+                            <label for="ref_name" class="form-label">Person Name</label>
+                            <input type="text" name="ref_name" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="ref_number" class="form-label">Person Number</label>
+                            <input type="text" name="ref_number" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="ref_relation" class="form-label">Relation</label>
+                            <input type="text" name="ref_relation" class="form-control">
+                        </div>
+                        <div class="remove-btn mt-3">
+                            <p class="pt-1">Delete</p>
+                        </div>
+                    </div></div>`;
+        div.innerHTML = content;
+        container.appendChild(div)
+    }
+
+    function showAlertBox(message) {
+        let content = `
+            <div class="alert alert-primary" role="alert">
+            ${message}
+            </div>`;
+        const alert = document.getElementById('alert-box');
+        alert.innerHTML = content;
+
+        setTimeout(() => {
+            alert.innerHTML = ''
+        }, 2000);
+    }
+
+    function readOnlyInputs(query) {
+        console.log(query)
+        const allInput = document.querySelectorAll(query);
+        console.log(allInput);
+        allInput.forEach((input) => {
+            input.readOnly = true;
+        });
+    }
+
+    function toogleModeForInput(save, edit, allInput, allDropDown) {
+        save.style.display = 'block';
+        edit.style.display = 'none';
+        allInput.forEach((input) => {
+            input.readOnly = false;
+        });
+
+        if (allDropDown.length >= 1) {
+            allDropDown.forEach((dropdown) => {
+                dropdown.disabled = false;
+            });
+        }
+    }
+
+    function dropDownReadOnlyInputs(query) {
+        const allInput = document.querySelectorAll(query);
+        allInput.forEach((input) => {
+            input.disabled = true;
+        });
+    }
+
+
+</script>
+
+</html>

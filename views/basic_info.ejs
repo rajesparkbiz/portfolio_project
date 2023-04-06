@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Info</title>
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<style>
+    span {
+        font-size: 20px;
+    }
+
+    .green {
+        color: green;
+
+    }
+
+    .mt-4 {
+        margin-top: 20px;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    #deleteBtn a {
+        color: white;
+    }
+
+    #deleteBtn {
+        float: right;
+        height: 35px;
+        width: 120px;
+        background-color: black;
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+        padding-top: 6px;
+    }
+
+    .nav-link {
+        margin: 10px;
+        height: 35px;
+        width: 100px;
+        background-color: black;
+        color: white;
+        border-radius: 10px;
+    }
+    .nav-link a{
+        color: white;
+        text-align: center;
+        padding-top: 5px;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .main{
+        display: flex;
+    }
+</style>
+
+<body>
+    <div class="container-fluid mt-4">
+
+        <div class="container-fluid">
+            <form action="/job-app/search" method="post">
+                <div class="row">
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="search_query">
+                    </div>
+                    <div class="col-sm">
+                        <input type="submit" class="btn btn-success m-3" value="search">
+                        
+                    </div>
+                    <div class="col-sm" id="deleteBtn">
+                        <a href="" onclick="deleteMultiple()">Delete Selected</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="container-fluid">
+            <span>^ <span class="green">indicate fname</span></span>
+            <span>& <span class="green">indicate lname</span></span>
+            <span>_ <span class="green">indicate email</span></span>
+            <span>~ <span class="green">indicate phone</span></span>
+            <span>% <span class="green">indicate designation</span></span>
+            <span>$ <span class="green">indicate city</span></span>
+            <span>! <span class="green">indicate state</span></span>
+        </div>
+
+        <% if(data==undefined || data.length==0) {%>
+            <center>
+                <h3>Data Not Found</h3>
+            </center>
+            <%}else{%>
+                <table border="1" class="table">
+                    <tr>
+                        <th>candidate_id</th>
+                        <th>fname</th>
+                        <th>lname</th>
+                        <th>designation</th>
+                        <th>dob</th>
+                        <th>zcode</th>
+                        <th>gender</th>
+                        <th>pref_location</th>
+                        <th>expacted_ctc</th>
+                        <th>email</th>
+                        <th>current_ctc</th>
+                        <th>department</th>
+                        <th>notice_period</th>
+                        <th>address</th>
+                        <th>city</th>
+                        <th>createdAt</th>
+                        <th>phone</th>
+                        <th>state</th>
+                        <th>Edit</th>
+                        <th>View</th>
+                        <th>Delete</th>
+                        <th>Delete Multiple</th>
+                    </tr>
+                    <% for(let i=0;i< data.length;i++){%>
+                        <tr>
+                            <% for(let j=0;j<id.length;j++) {%>
+                                <td>
+                                    <%= data[i][id[j]] %>
+                                </td>
+                                <%}%>
+                                    <td>
+                                        <a href="/job-app/edit/?id=<%= data[i].candidate_id %>">Edit</a>
+                                    </td>
+                                    <td>
+                                        <a href="/job-app/more/?id=<%= data[i].candidate_id %>">More</a>
+                                    <td>
+                                        <a href="" onclick="deleteRecord('<%= data[i].candidate_id %>')">Delete</a>
+                                    </td>
+                                    <td>
+                                        <input class="form-check deleteAll" type="checkbox"
+                                            id="<%= data[i].candidate_id %>">
+                                    </td>
+                                    </td>
+                        </tr>
+                        <%}%>
+                </table>
+                <%}%>
+    </div>
+</body>
+<script>
+
+
+//this code use for update the visiblity of delete button
+    const link = document.getElementById("deleteBtn");
+    link.style.display = 'none';
+    const checkbox = document.querySelectorAll('.deleteAll');
+    let count = 0;
+    
+    checkbox.forEach((box) => {
+
+        box.addEventListener('change', async () => {
+            if (box.checked) {
+                count++;
+            } else {
+                count--;
+            }
+            if (count > 1) {
+                link.style.display = 'block';
+            } else {
+                link.style.display = 'none';
+            }
+        })
+    });
+
+
+    const deleteAllBtn = document.getElementById("deleteBtn");
+    deleteAllBtn.addEventListener("click", async function () {
+        const checkboxs = document.querySelectorAll(".deleteAll");
+        let ids = [];
+        let count = 0;
+        for (var i = 0; i < checkboxs.length; i++) {
+            if (checkboxs[i].checked) {
+                ids[count] = checkboxs[i].id;
+                count++;
+            }
+        }
+        const alert_result = confirm(`Are you want sure to delete id ${ids.toString()} record?`);
+        if (alert_result == true) {
+            const response = await fetch(`/job-app/delete-multiple/?id=${ids}`);
+        } else {
+            return;
+        }
+
+    });
+
+    async function deleteRecord(id) {
+
+        const alert_result = confirm(`Are you want sure to delete id ${id} record?`);
+        if (alert_result == true) {
+            const response = await fetch(`/job-app/delete/?id=${id}`);
+        } else {
+            return;
+        }
+    }
+</script>
+
+</html>

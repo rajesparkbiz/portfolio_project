@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EsparkBiz Interview Process</title>
+    <link rel="stylesheet" href="/css/simple-form.css">
+</head>
+
+<body>
+    <center>
+        <form action="form.html" method="get">
+            <table border="1">
+                <h1>EsparkBiz Interview Process Form</h1>
+                <tr>
+                    <td>Enter Your Full Name</td>
+                    <td>
+                        <input type="text" name="student_name" id="student_name" placeholder="Enter Your Name"> <p id="nameError" class="error"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Enter Your email</td>
+                    <td>
+                        <input type="email" name="student_email" id="student_email" placeholder="Enter Your Email"> <p id="emailError" class="error"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Enter Your Contact Numebr</td>
+                    <td>
+                        <input type="tel" name="student_number" id="student_number" placeholder="Enter Your number"
+                            > <p id="numberError" class="error"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Enter Your College Name</td>
+                    <td>
+                        <input type="text" name="student_college" id="student_college"
+                            placeholder="Enter Your College Name"> <p id="collegeError" class="error"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20px; height: 20px;">Select Gender</td>
+                    <td>
+                        <div id="gender_box">
+
+                            <input type="radio" name="student_college" id="student_gender" value="male"
+                                style="width: 20px; height: 20px;">
+                            Male
+                            <input type="radio" name="student_college" id="student_gender" value="female"
+                                style="width: 20px; height: 20px;">
+                            Female
+                        </div> <p id="genderError" class="error"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Select Company Location for Position</td>
+                    <td>
+                        <select name="company_location" id="company_location">
+                            <option value="Ahemdabad">Ahemdabad</option>
+                            <option value="Rajkot">Rajkot</option>
+                            <option value="Surat">Surat</option>
+                        </select> <p id="locationError" class="error"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20px; height: 20px;">Select Your Interseted Domain</td>
+                    <td>
+                        <div id="position_domain_box">
+                            
+                            <input type="checkbox" name="position_type" class="position_type" value="Web Developer"
+                                style="width: 20px; height: 20px;">
+                            Web Developer <br>
+                            <input type="checkbox" name="position_type" class="position_type" value="Android Developer"
+                                style="width: 20px; height: 20px;">
+                            Android Developer <br>
+                            <input type="checkbox" name="position_type" class="position_type" value="Flutter Developer"
+                                style="width: 20px; height: 20px;">
+                            Flutter Developer <br>
+                            <input type="checkbox" name="position_type" class="position_type"
+                                value="Blockchain Developer" style="width: 20px; height: 20px;">
+                            Blockchain Developer <br>
+                            <input type="checkbox" name="position_type" class="position_type" value="Devops Developer"
+                                style="width: 20px; height: 20px;">
+                            Devops Developer <br>
+                            <p id="positionError" class="error"></p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Write your coding journey</td>
+                    <td>
+                        <textarea name="student_description" id="student_description" cols="30" rows="10"></textarea > <p id="descriptionError" class="error"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="">
+                        <div id="formBtn">
+                            <input class="formButton" id="submitBtn" type="button" value="Submit" onclick="validateData()">
+                            <input class="formButton" type="reset" value="Reset">
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+    </center>
+    <script src="/js/simple-form.js"></script>
+    
+</body>
+
+</html>

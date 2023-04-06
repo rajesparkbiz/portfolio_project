@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>More Data</title>
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<body>
+    
+    <div class="container-fluid">
+        <h3>Acadamic Info</h3>
+        <table class="table" border="1">
+            <tr>
+                <th>candidate_id</th>
+                <th>course_name</th>
+                <th>education_board</th>
+                <th>education_year</th>
+                <th>education_grade</th>
+            </tr>
+            <% for(let i=0;i<acadamic_data.length;i++)  {%>
+                <tr>
+                    <% for(let j=0;j<id.length;j++) {%>
+                        <td>
+                            <%= acadamic_data[i][id[j]] %>
+                        </td>
+                    <%}%>
+                </tr>
+            <%}%>
+        </table>
+    </div>
+    <div class="container-fluid">
+        <h3>Language Info</h3>
+        <table class="table" border="1">
+            <tr>
+                <th>candidate_id</th>
+                <th>language_name</th>
+                <th>language_read</th>
+                <th>language_speak</th>
+                <th>language_write</th>
+            </tr>
+            <% for(let i=0;i<language_data.length;i++)  {%>
+                <tr>
+                    <% for(let j=0;j<id2.length;j++) {%>
+                        <td>
+                            <% if(language_data[i][id2[j]]==null){%>
+                                NO
+                            <%}else{%>
+                                Yes
+                            <%}%>
+                        </td>
+                    <%}%>
+                </tr>
+            <%}%>
+        </table>
+    </div>
+    <div class="container-fluid">
+        <h3>Experience Info</h3>
+        <table class="table" border="1">
+            <tr>
+                <th>candidate_id</th>
+                <th>company_name</th>
+                <th>candidate_position</th>
+                <th>candidate_joining</th>
+                <th>candidate_leaving</th>
+            </tr>
+            <% for(let i=0;i<experience_data.length;i++)  {%>
+                <tr>
+                    <% for(let j=0;j<id1.length;j++) {%>
+                        <td>
+                            <%= experience_data[i][id1[j]] %>
+                        </td>
+                    <%}%>
+                </tr>
+            <%}%>
+        </table>
+    </div>
+    <div class="container-fluid">
+        <h3>Technology Info</h3>
+        <table class="table" border="1">
+            <tr>
+                <th>candidate_id</th>
+                <th>technology_name</th>
+                <th>technology_level</th>
+            </tr>
+            <% for(let i=0;i<technology_data.length;i++)  {%>
+                <tr>
+                    <% for(let j=0;j<id3.length;j++) {%>
+                        <td>
+                            <%= technology_data[i][id3[j]] %>
+                        </td>
+                    <%}%>
+                </tr>
+            <%}%>
+        </table>
+    </div>
+    <div class="container-fluid">
+        <h3>Referance Info</h3>
+        <table class="table" border="1">
+            <tr>
+                <th>candidate_id</th>
+                <th>person_name</th>
+                <th>person_contact</th>
+                <th>person_relation</th>
+            </tr>
+            <% for(let i=0;i<refrence_data.length;i++)  {%>
+                <tr>
+                    <% for(let j=0;j<id4.length;j++) {%>
+                        <td>
+                            <%= refrence_data[i][id4[j]] %>
+                        </td>
+                    <%}%>
+                </tr>
+            <%}%>
+        </table>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+</html>

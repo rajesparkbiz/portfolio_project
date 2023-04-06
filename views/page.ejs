@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        #page-boxes {
+            display: flex;
+        }
+
+        .page-box {
+            height: 30px;
+            width: 30px;
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+
+        #btns {
+            margin: 10px;
+            display: flex;
+        }
+
+        .changeBtn {
+            display: flex;
+            justify-content: center;
+        }
+
+        #overlay {
+            display: block;
+            width: 100%;
+            height: 100%
+        }
+
+        .poniter {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="content">
+
+
+
+        <div id="main" class="container-fluid">
+
+
+            <div class="container mt-5">
+
+                <div class="search">
+                    <div class="container">
+                        <form action="/search" method="post">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="fname">
+                                <input type="submit" class="btn btn-success">
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+
+                <div id="table-data">
+                    <table border="1" class="table table-hover">
+                        <tr>
+                            <th><a class=".link" href="/pagination/?page=1&orderBy=id&sort=<%=sort%>&sortField=id">ID</a></th>
+                            <th><a class=".link"
+                                    href="/pagination/?page=1&orderBy=First_Name&sort=<%=sort%>&sortField=First_Name">First
+                                    name</a></th>
+                            <th><a class=".link"
+                                    href="/pagination/?page=1&orderBy=Last_Name&sort=<%=sort%>&sortField=Last_Name">Last name</a>
+                            </th>
+                            <th><a class=".link"
+                                    href="/pagination/?page=1&orderBy=Contact_No&sort=<%=sort%>&sortField=Contact_No">phone
+                                    number</a></th>
+                            <th><a class=".link" href="/pagination/?page=1&orderBy=City&sort=<%=sort%>&sortField=City">city</a>
+                            </th>
+                            <th><a class=".link" href="/pagination/?page=1&orderBy=Email&sort=<%=sort%>&sortField=Email">email</a>
+                            </th>
+                            <th><a class=".link"
+                                    href="/pagination/?page=1&orderBy=University_id&sort=<%=sort%>&sortField=University_id">university_id</a>
+                            </th>
+                            <th><a class=".link"
+                                    href="/pagination/?page=1&orderBy=createdAt&sort=<%=sort%>&sortField=createdAt">createdAt</a>
+                            </th>
+                        </tr>
+                        <% for(let i=0;i<data.length;i++){ %>
+                            <tr>
+                                <% for(let j=0;j<id.length;j++){ %>
+                                    <td>
+                                        <%= data[i][id[j]] %>
+                                    </td>
+                                    <%}%>
+                            </tr>
+                            <%}%>
+                    </table>
+
+                </div>
+
+
+                <div class="container changeBtn" id="buttons">
+
+                    <p class="poniter btn btn-primary m-1" onclick="nextPage('<%=page%>')">Next</p>
+                    <p class="poniter btn btn-primary m-1" onclick="nextPage('<%=prev%>')">Prev</p>
+
+                    </a>
+                    <a class="btn btn-primary disabled m-1" href="#" role="button">Total Pages&nbsp;&nbsp; <%=
+                            total_pages%></a>
+                </div>
+
+                <div class="container changeBtn" id="pages-number-links">
+
+                    <%for(let i=(page>5 ? (page-5) : 1) ;i< (page>5 && page< total_pages ? (page+5) : 10);i++){ %>
+                                <p class="poniter btn btn-primary m-1" onclick="nextPage('<%=i%>')">Page-<%=i%>
+                                </p>
+
+                                <%}%>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+
+<script>
+
+
+
+    async function nextPage(page) {
+        document.body.style.backgroundColor = 'rgb(52,73,94)'
+        setTimeout(() => {
+            document.body.style.backgroundColor = 'rgb(255,255,255)'
+        }, 1000)
+        console.log(page)
+        const response = await fetch(`/pagination/?page=${page}&orderBy=id&sort=<%= sort %>`);
+        const data = await response.json();
+        console.log(data);
+        let ids = ["id", "First_Name", "Last_Name", "Contact_No", "City", "Email", "University_id", "createdAt"];
+        displayData(data.result, ids, data.page, data.total_pages, data.prev);
+    }
+
+
+    function displayData(data, columns, page, total_pages, prev) {
+
+        let content = `<table class="table table-hover m-5" border='1'>`;
+        content += '<tr>';
+        for (let i = 0; i < columns.length; i++) {
+            content += `<td>${columns[i]}</td>`
+        }
+        content += '</tr>';
+
+        for (let j = 0; j < data.length; j++) {
+            content += '<tr>';
+            for (let k = 0; k < columns.length; k++) {
+                content += `<td> ${data[j][columns[k]]} </td>`
+            }
+            content += '</tr>';
+        }
+        content += '</table>';
+
+        let nextLink = `<p class="poniter btn btn-primary m-1" onclick="nextPage('${page}')">Next</p>`;
+        nextLink += `<p class="poniter btn btn-primary m-1" onclick="nextPage('${prev}')">prev</p>`;
+
+        let page_links = ``;
+        for (let i = (page > 5 ? (page - 5) : 1); i < (page > 5 && page < total_pages ? (page + 5) : 10); i++) {
+            page_links += `
+          <p onclick="nextPage('${i}')" style="background-color:rgb(13,110,253)"
+                class="btn btn-primary m-1"
+                role="button" >page ${i}
+            </p >`;
+        }
+
+        document.getElementById("buttons").innerHTML = nextLink;
+
+        document.getElementById("table-data").innerHTML = content;
+
+        document.getElementById("pages-number-links").innerHTML = page_links;
+    }
+</script>
+
+</html>

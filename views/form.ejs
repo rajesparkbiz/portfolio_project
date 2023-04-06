@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        fieldset {
+            border-radius: 10px;
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+
+        .dbl_input {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        /* #container {
+            height: 400px;
+            width: 100%;
+        } */
+
+        #addEduBtn {
+            font-size: 30px;
+            font-weight: 900;
+            color: black;
+        }
+
+        #state {
+            height: 30px;
+        }
+
+        .col {
+            margin: 10px;
+        }
+
+        #col-2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+
+        #lang_cols {
+            margin: 10px;
+        }
+
+
+        #submtBtn {
+            background-color: cadetblue;
+            border-radius: 10px;
+            height: 30px;
+            width: 100px;
+            margin: 10px;
+        }
+
+        .heading {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container" class="container">
+        <h3 class="heading">Job Application Form</h3>
+        <form action="index.html" method="get">
+
+            <!-- basic infomation -->
+            <fieldset id="basic_info">
+                <legend>Basic details</legend>
+                <div class="dbl_input">
+                    <div class="col">
+                        <label for="fname">First Name</label>
+                        <input class="form-control type=" text" name="fname" id="fname">
+                    </div>
+                    <div class="col">
+                        <label for="lname">Last Name</label>
+                        <input type="text" name="lname" id="lname">
+                    </div>
+                </div>
+                <div class="dbl_input">
+                    <div class="col">
+                        <label for="designation">Designation</label>
+                        <input type="text" name="designation" id="designation">
+                    </div>
+                    <div class="col">
+                        <label for="address1">Address1</label>
+                        <input type="text" name="address1" id="address1">
+                    </div>
+                </div>
+                <div class="dbl_input">
+                    <div class="col">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email">
+                    </div>
+                    <div class="col">
+                        <label for="address2">Address2</label>
+                        <input type="text" name="address2" id="address2">
+                    </div>
+                </div>
+                <div class="dbl_input">
+                    <div class="col">
+                        <label for="phone">phone Number</label>
+                        <input type="text" name="phone" id="phone">
+                    </div>
+                    <div class="col">
+                        <label for="city">city</label>
+                        <input type="text" name="city" id="city">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+                <div class="dbl_input">
+                    <div id="gender-div">
+                        <label for="gender">Gender</label>
+                        <input type="radio" name="gender" value="male" id="gender">Male
+                        <input type="radio" name="gender" id="gender">Female
+                        <input type="radio" name="gender" id="gender">Other
+                    </div>
+                    <div id="state-div">
+                        <label for="state">State</label>
+                        <select name="state" id="state">
+                            <option value="Gujarat">Gujarat</option>
+                            <option value="Andhra Pradesh">Andhra Pradesh</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                            <option value="Haryana">Haryana</option>
+                            <option value="Goa">Goa</option>
+                        </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+
+                </div>
+                <div class="dbl_input">
+                    <div class="col">
+                        <label for="relationship">Relationship</label>
+                        <select name="relationship" id="relationship">
+                            <option value="Gujarat">Single</option>
+                            <option value="Andhra Pradesh">maried</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="city">city</label>
+                        <input type="text" name="city" id="city">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" name="dob" id="dob">
+                </div>
+            </fieldset>
+            <!-- Education infomation -->
+            <fieldset id="edu_info">
+                <legend>
+                    Education Detail
+                </legend>
+                <div id="addEduBtn">
+                    <input type="button" value="Add Course">
+                </div>
+                <div id="edu_info">
+                    <div>
+                        <div class="dbl_input">
+                            <div class="col">
+                                <label for="edu_board${edu_counter}">Name of Course</label>
+                                <input type="text" name="edu_course${edu_counter}" id="edu_course${edu_counter}">
+                            </div>
+                            <div class="col">
+                                <label for="edu_board${edu_counter}">Name of Board</label>
+                                <input type="text" name="edu_board${edu_counter}" id="edu_board${edu_counter}">
+                            </div>
+                            <div class="col">
+                                <label for="edu_passing_year${edu_counter}">Passing year</label>
+                                <input type="text" name="edu_passing_year${edu_counter}"
+                                    id="edu_passing_year${edu_counter}">
+                            </div>
+                            <div class="col">
+                                <label for="edu_per${edu_counter}">Percentage</label>
+                                <input type="text" name="edu_per${edu_counter}" id="edu_per${edu_counter}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Experience infomation -->
+            <fieldset id="exe">
+                <legend>
+                    Work Experience
+                </legend>
+                <div id="addExpeBtn">
+                    <input type="button" value="Add Experience">
+                </div>
+                <div id="exe_info">
+                    <div class="dbl_input">
+                        <div class="col">
+                            <label for="exe_company_name${exe_counter}">Company Name</label>
+                            <input type="text" name="exe_company_name${exe_counter}"
+                                id="exe_company_name${exe_counter}">
+                        </div>
+                        <div class="col">
+                            <label for="exe_designation${exe_counter}">Designation</label>
+                            <input type="text" name="exe_designation${exe_counter}" id="exe_designation${exe_counter}">
+                        </div>
+                        <div class="col">
+                            <label for="exe_from${exe_counter}">From</label>
+                            <input type="date" name="exe_from${exe_counter}" id="exe_from${exe_counter}">
+                        </div>
+                        <div class="col">
+                            <label for="exe_to${exe_counter}">To</label>
+                            <input type="date" name="exe_to${exe_counter}" id="exe_to${exe_counter}">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Language and techonology infomation -->
+
+            <div id="col-2">
+
+                <!-- Language infomation -->
+                <fieldset id="lang">
+
+                    <legend>Language Know</legend>
+                    <div id="lang_info">
+                        <div id="addLangBtn">
+                            <input type="button" value="Add Language">
+                        </div>
+                        <div id="lang_cols">
+                            <input type="checkbox" class="lang_Hindi1" name="lang_name" id="lang_Hindi1" value="hindi">
+                            <label for="lang_hindi">Hindi</label>
+                            <input type="checkbox" name="lang_read1" class="lang1" id="lang_read1" value="read">
+                            <label for="lang_read">Read</label>
+                            <input type="checkbox" name="lang_speak1" class="lang1" id="lang_speak1" value="speak">
+                            <label for="lang_speak">Speak</label>
+                            <input type="checkbox" name="lang_write1" class="lang1" id="lang_write1" value="write">
+                            <label for="lang_write">Write</label>
+                        </div>
+
+                    </div>
+
+                    <!-- Technology infomation -->
+                </fieldset id="tech">
+                <fieldset>
+                    <legend>Technology you know</legend>
+                    <div id="tech_info">
+                        <div id="addTechBtn">
+                            <input type="button" value="Add Technology">
+                        </div>
+                        <div id="lang_cols">
+                            <input type="checkbox" name="tech_main_Java1" value="Java" id="tech_main_Java1">
+                            <label for="tech_main_Java1">Java</label>
+
+                            <input type="radio" name="tech_Java1" id="tech_Java_beginner1" value="beginner">
+                            <label for="tech_Java1">Beginner</label>
+
+                            <input type="radio" name="tech_Java1" id="tech_Java_mideator1" value="mideator">
+                            <label for="tech_Java1">Mideator</label>
+
+                            <input type="radio" name="tech_Java1" id="tech_Java_expert1" value="expert">
+                            <label for="tech_Java1">Expert</label>
+                        </div>
+
+                    </div>
+                </fieldset>
+
+            </div>
+
+            <!-- Referance infomation -->
+
+            <fieldset id="ref_info">
+                <legend>
+                    Referance Contact
+                </legend>
+                <div id="addEduBtn">
+                    <input type="button" value="Add Referance">
+                </div>
+                <div id="pref_info">
+
+                </div>
+            </fieldset>
+
+            <!-- Preferances infomation -->
+
+            <fieldset>
+                <legend>Preferances</legend>
+                <div class="dbl_input">
+                    <div class="col">
+                        <label for="pref_location">Preferd Location</label>
+                        <select name="pref_location" id="pref_location">
+                            <option value="rajkot">Rajkot</option>
+                            <option value="ahemdabad">Ahemdabad</option>
+                            <option value="surat">Surat</option>
+                            <option value="junagadh">Junagadh</option>
+                            <option value="other">other</option>
+                        </select>
+                    </div>
+                    <div id="ctc_card">
+                        <div class="col">
+                            <label for="notice_period">Notice Peroid</label>
+                            <input type="text" name="notice_period" id="notice_period">
+                        </div>
+                        <div class="col">
+                            <label for="expacted_ctc">Expacted CTC</label>
+                            <input type="text" name="expacted_ctc" id="expacted_ctc">
+                        </div>
+                        <div class="col">
+                            <label for="current_ctc">Current CTC</label>
+                            <input type="text" name="current_ctc" id="current_ctc">
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <!-- department infomation -->
+
+                        <label for="department">Department</label>
+                        <select name="department" id="department">
+                            <option value="design">Design</option>
+                            <option value="marketing">Marketing</option>
+                            <option value="frontend">Frontend</option>
+                            <option value="database designer">Database Designer</option>
+                            <option value="other">Other</option>
+
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+            <input type="button" id="submtBtn" value="submit">
+        </form>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+</html>

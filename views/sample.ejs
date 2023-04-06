@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+    <style>
+        fieldset {
+            border-radius: 10px;
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+
+        .dbl_input {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        #container {
+            height: 400px;
+            width: 100%;
+        }
+
+        #addEduBtn {
+            font-size: 30px;
+            font-weight: 900;
+            color: black;
+        }
+
+        #state {
+            height: 30px;
+        }
+
+        .col {
+            margin: 10px;
+        }
+
+        #col-2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        }
+
+        #lang_cols {
+            margin: 10px;
+        }
+
+
+        #submtBtn {
+            background-color: cadetblue;
+            border-radius: 10px;
+            height: 30px;
+            width: 100px;
+            margin: 10px;
+        }
+
+        .heading {
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h3 class="heading">Job Application Form</h3>
+        <form action="/job-app/insert" method="post">
+
+            <!-- basic infomation -->
+            <fieldset id="basic_info">
+                <legend>Basic details</legend>
+                <div class="dbl_input">
+                    <div class="col">
+                        <label for="fname">First Name</label>
+                        <input type="text" name="fname" id="fname">
+                    </div>
+                    <div class="col">
+                        <label for="lname">Last Name</label>
+                        <input type="text" name="lname" id="lname">
+                    </div>
+                </div>
+                <div class="dbl_input">
+                    <div class="col">
+                        <labe for="designation">Designation</label>
+                            <input type="text" name="designation" id="designation">
+                    </div>
+                    <div class="col">
+                        <labelfor="address1">Address1</label>
+                            <input type="text" name="address1" id="address1">
+                    </div>
+                </div>
+                <div class="dbl_input">
+                    <div class="col">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email">
+                    </div>
+                    <div class="col">
+                        <label for="address2">Address2</label>
+                        <input type="text" name="address2" id="address2">
+                    </div>
+                </div>
+                <div class="dbl_input">
+                    <div class="col">
+                        <label for="phone">phone Number</label>
+                        <input type="text" name="phone" id="phone">
+                    </div>
+                    <div class="col">
+                        <label for="city">city</label>
+                        <select name="city" id="city_menu">
+                            <% for(let i=0;i< city.length;i++) {%>
+                                <option value="<%= city[i].city_name %>">
+                                    <%= city[i].city_name %>
+                            </option>
+                        <%}%>
+                        </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+                <div class="dbl_input">
+                    <div id="gender-div">
+                        <label for="gender">Gender</label>
+                        <input type="radio" name="gender" value="Male" id="gender">Male
+                        <input type="radio" name="gender" value="Female" id="gender">Female
+                        <input type="radio" name="gender" value="Other" id="gender">Other
+                    </div>
+                    <div id="state-div">
+                        <label for="state">State</label>
+                        <select name="state" id="state_menu" onchange="updateCity()">
+
+                            <% for(let i=0;i< state_menu.length;i++) {%>
+                                <option value="<%= state_menu[i].state_id %>">
+                                    <%= state_menu[i].state_name %>
+                                </option>
+                            <%}%>
+
+                        </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+
+                </div>
+                <div class="dbl_input">
+                    <div class="col">
+                        <label for="relationship">Relationship</label>
+                        <select name="relationship" id="relationship">
+
+                            <% for(let i=0;i< option_menu.length;i++) {%>
+                                <option value="<%= option_menu[i].option_value %>">
+                                    <%= option_menu[i].option_value %>
+                                </option>
+                                <%}%>
+                        </select>
+                    </div>
+                </div>
+                <div class="dbl_input">
+                    <div class="col">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" name="dob" id="dob">
+                    </div>
+                    <div class="col">
+                        <label for="zcode">Zip code</label>
+                        <input type="text" name="zcode" id="zcode">
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <!-- Education infomation -->
+            <fieldset id="edu_info">
+                <legend>
+                    Education Detail
+                </legend>
+                <div id="addEduBtn">
+                    <input type="button" id="addEdu" value="Add Education">
+                </div>
+                <div id="edu_info">
+                    <div>
+                        <div class="dbl_input">
+                            <div class="col">
+                                <label for="Course">Name of course</label>
+                                <select name="Course">
+                                    <% for(let i=0;i< courses.length;i++) {%>
+                                        <option value="<%= courses[i].course_name %>">
+                                            <%= courses[i].course_name %>
+                                        </option>
+                                        <%}%>
+                                </select>
+
+                            </div>
+                            <div class="col">
+                                <label for="institution">Name of Board</label>
+                                <input type="text" name="institution">
+                            </div>
+                            <div class="col">
+
+                                <label for="Passing_Year">Passing year</label>
+                                <input type="text" name="Passing_Year">
+                            </div>
+                            <div class="col">
+                                <label for="Percentage">Percentage</label>
+                                <input type="text" name="Percentage">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Experience infomation -->
+            <fieldset id="exe">
+                <legend>
+                    Work Experience
+                </legend>
+                <div id="addExpeBtn">
+                    <input type="button" value="Add Experience" id="exeBtn">
+                </div>
+                <div id="exe_info">
+                    <div class="dbl_input">
+                        <div class="col">
+                            <label for="exe_company_name">Company Name</label>
+                            <input type="text" name="exe_company_name">
+                        </div>
+                        <div class="col">
+                            <label for="exe_designation">Designation</label>
+                            <input type="text" name="exe_designation">
+                        </div>
+                        <div class="col">
+                            <label for="exe_from">From</label>
+                            <input type="date" name="exe_from">
+                        </div>
+                        <div class="col">
+                            <label for="exe_to">To</label>
+                            <input type="date" name="exe_to">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Language and techonology infomation -->
+
+            <div id="col-2">
+
+                <!-- Language infomation -->
+                <fieldset id="lang">
+
+                    <legend>Language Know</legend>
+                    <div id="lang_info">
+
+                        <% for(let i=0;i<languages.length;i++) {%>
+                            <div id="lang_cols">
+                                <input type="checkbox" name="<%= languages[i].option_value %>"
+                                    value="<%= languages[i].option_value %>">
+                                <label for="<%= languages[i].option_value %>">
+                                    <%= languages[i].option_value %>
+                                </label>
+
+                                <input type="checkbox" name="<%= languages[i].option_value %>r" value="yes">
+                                <label for="<%= languages[i].option_value %>r">Read</label>
+
+                                <input type="checkbox" name="<%= languages[i].option_value %>s" value="yes">
+                                <label for="<%= languages[i].option_value %>s">Speak</label>
+
+                                <input type="checkbox" name="<%= languages[i].option_value %>w" value="yes">
+                                <label for="<%= languages[i].option_value %>w">Write</label>
+                            </div>
+                            <%}%>
+
+                    </div>
+
+                    <!-- Technology infomation -->
+                </fieldset id="tech">
+                <fieldset>
+                    <legend>Technology you know</legend>
+                    <div id="tech_info">
+                        <% for(let i=0;i<technologies.length;i++) {%>
+                            <div id="lang_cols">
+
+                                <input type="checkbox" name="<%= technologies[i].option_value %>"
+                                    value="<%= technologies[i].option_value %>">
+                                <label for="tech_main">
+                                    <%= technologies[i].option_value %>
+                                </label>
+
+                                <input type="radio" name="<%= technologies[i].option_value %>a" value="beginner">
+                                <label for="<%= technologies[i].option_value %>a">Beginner</label>
+
+                                <input type="radio" name="<%= technologies[i].option_value %>a" value="mideator">
+                                <label for="<%= technologies[i].option_value %>a">Mideator</label>
+
+                                <input type="radio" name="<%= technologies[i].option_value %>a" value="expert">
+                                <label for="<%= technologies[i].option_value %>a">Expert</label>
+
+                            </div>
+                            <%}%>
+
+
+                    </div>
+                </fieldset>
+
+            </div>
+
+            <!-- Referance infomation -->
+
+            <fieldset id="ref_info">
+                <legend>
+                    Referance Contact
+                </legend>
+                <div id="addEduBtn">
+                    <input type="button" value="Add Referance" id="refBtn">
+                </div>
+                <div id="pref_info">
+                    <div class="dbl_input">
+                        <div class="col">
+                            <label for="ref_name">Person Name</label>
+                            <input type="text" name="ref_name">
+                        </div>
+                        <div class="col">
+                            <label for="ref_number">Contact Number</label>
+                            <input type="text" name="ref_number">
+                        </div>
+                        <div class="col">
+                            <label for="ref_relation">Relation</label>
+                            <input type="text" name="ref_relation">
+                        </div>
+
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="dbl_input">
+                    <div class="col">
+                        <label for="pref_location">Preferd Location</label>
+                        <select name="pref_location" id="pref_location">
+
+                            <% for(let i=0;i< pref_menu.length;i++) {%>
+                                <option value="<%= pref_menu[i].option_value %>">
+                                    <%= pref_menu[i].option_value %>
+                                </option>
+                                <%}%>
+                        </select>
+                    </div>
+                    <div id="ctc_card">
+                        <div class="col">
+                            <label for="notice_period">Notice Peroid</label>
+                            <input type="text" name="notice_period" id="notice_period">
+                        </div>
+                        <div class="col">
+                            <label for="expacted_ctc">Expacted CTC</label>
+                            <input type="text" name="expacted_ctc" id="expacted_ctc">
+                        </div>
+                        <div class="col">
+                            <label for="current_ctc">Current CTC</label>
+                            <input type="text" name="current_ctc" id="current_ctc">
+                        </div>
+
+                    </div>
+                    <div>
+                        <!-- department infomation -->
+
+                        <label for="department">Department</label>
+                        <select name="department" id="department">
+
+                            <% for(let i=0;i< department_menu.length;i++) {%>
+                                <option value="<%= department_menu[i].option_value %>">
+                                    <%= department_menu[i].option_value %>
+                                </option>
+                                <%}%>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+            <input type="submit" id="submtBtn" value="submit">
+        </form>
+    </div>
+</body>
+<script>
+
+    async function updateCity() {
+        const stateDropdown = document.getElementById('state_menu');
+
+        try {
+            const response = await fetch(`/job-app/cities/?state_id=${stateDropdown.value}`);
+            const city = await response.json();
+            updateOptions(city);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function updateOptions(cities) {
+        const cityDropdown = document.getElementById('city_menu');
+        cityDropdown.innerHTML = '';
+
+        for (let i = 0; i < cities.length; i++) {
+            const option = document.createElement('option');
+            option.value = cities[i].city_name;
+            option.text = cities[i].city_name;
+            cityDropdown.appendChild(option);
+        }
+    }
+
+    //counter declaration for set dynamic ids in html element
+    var edu_counter = 1;
+    var exe_counter = 1;
+    var ref_counter = 1;
+
+    //this counter 1 because at least one time show
+    var lang_counter = 1;
+    var tech_counter = 1;
+
+    var language_list = ["Hindi"];
+    var technology_list = ["Java"];
+
+    //form whole data variable declaration
+    var candidateData = [];
+
+    let id_list = [
+        "fname", "lname", "designation", "address1", "address2", "email", "phone", "city", "gender", "state", "relationship", "dob"
+    ];
+
+
+    var edu = document.getElementById("addEdu");
+    var exe = document.getElementById("exeBtn");
+    var ref = document.getElementById("refBtn");
+    edu.addEventListener('click', () => {
+        addEducationCard();
+    });
+    exe.addEventListener('click', () => {
+        addEdxperienceCard();
+    });
+    ref.addEventListener('click', () => {
+        addRefrenceCard();
+    });
+
+
+    function addEducationCard() {
+
+        edu_counter++;
+        var edu_card = document.getElementById("edu_info");
+        var create_div = document.createElement("div");
+        create_div.classList.add("edu_component");
+        var content = `
+        <div>
+            <div class="dbl_input">
+                <div class="col">
+                    <label for="Course">Name of course</label>
+                    <select name="Course">
+                                <% for(let i=0;i< courses.length;i++) {%>
+                                    <option value="<%= courses[i].course_name %>">
+                                        <%= courses[i].course_name %>
+                                    </option>
+                                <%}%>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="institution">Name of Board</label>
+                    <input type="text" name="institution">
+                </div>
+                <div class="col">
+                    <label for="Passing_Year">Passing year</label>
+                    <input type="text" name="Passing_Year">
+                </div>
+                <div class="col">
+                    <label for="Percentage">Percentage</label>
+                    <input type="text" name="Percentage">
+                </div>
+            </div></div>`;
+
+        create_div.innerHTML = content;
+        edu_card.appendChild(create_div);
+    }
+
+    function addEdxperienceCard() {
+        exe_counter++;
+        var edu_card = document.getElementById("exe_info");
+        var create_div = document.createElement("div");
+        var content = `
+        <div class="dbl_input">
+        <div class="col">
+            <label for="exe_company_name">Company Name</label>
+            <input type="text" name="exe_company_name">
+        </div>
+        <div class="col">
+            <label for="exe_designation">Designation</label>
+            <input type="text" name="exe_designation">
+        </div>
+        <div class="col">
+            <label for="exe_from">From</label>
+            <input type="date" name="exe_from">
+        </div>
+        <div class="col">
+            <label for="exe_to">To</label>
+            <input type="date" name="exe_to">
+        </div>
+    </div>
+    `;
+
+        create_div.innerHTML = content;
+        edu_card.appendChild(create_div);
+    }
+
+    function addRefrenceCard() {
+        ref_counter++;
+        var ref_card = document.getElementById("pref_info");
+        var create_div = document.createElement("div");
+        var content = `
+        
+        <div class="dbl_input">
+            <div class="col">
+                <label for="ref_name">Person Name</label>
+                <input type="text" name="ref_name">
+            </div>
+            <div class="col">
+                <label for="ref_number">Contact Number</label>
+                <input type="text" name="ref_number">
+            </div>
+            <div class="col">
+                <label for="ref_relation">Relation</label>
+                <input type="text" name="ref_relation">
+            </div>
+
+        </div>
+        `;
+        create_div.innerHTML = content;
+        ref_card.appendChild(create_div);
+    }
+
+
+</script>
+
+</html>

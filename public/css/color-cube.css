@@ -1,0 +1,41 @@
+td{
+    border: 1px solid black;
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    background-color: cadetblue;
+}
+
+table{
+    border: 1px solid black;
+}
+
+#timeLine{
+    font-size: 20px;
+    font-weight: 600;
+    height: 25px;
+    width: 50px;
+    background-color: black;
+    border-radius: 50px;
+    text-align: center;
+    color: white;
+    padding-top: 3px;
+    margin-bottom: 10px;
+}
+
+
+.animation{
+    animation-name: custom;
+    animation-duration: 2s;
+    background-color: snow;
+}
+
+@keyframes custom {
+    from{
+        transform: rotate(150deg);
+    }
+    to{
+        transform: rotate(180deg);
+
+    }
+}
